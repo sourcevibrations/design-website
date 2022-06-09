@@ -11,6 +11,12 @@ function createCard(row) {
   imageLink.href = row.path;
   imageLink.append(createOptimizedPicture(row.image, row.title));
 
+  const tagLinkArray = row.path.split('/');
+  const tagLinkCount = tagLinkArray.length;
+  const tagArticlePath = tagLinkArray[tagLinkCount - 1];
+  const tagLinkString = tagLinkArray.join('/');
+  const tagLink = tagLinkString.replace(tagArticlePath, '');
+
   const cardSubTitle = `${row.subtitle ? `<p class="cmp-stories-card__intro">${row.subtitle}</p>` : ''}`;
   const cardAuthor = `${row.author ? `<p class="cmp-stories-card__author">by ${row.author}</p>` : ''}`;
   const cardAuthorTitle = `${row.authorTitle ? `<p class="cmp-stories-card__author-title">${row.authorTitle}</p>` : ''}`;
@@ -26,7 +32,7 @@ function createCard(row) {
 
   card.innerHTML = `
     <div class="cmp-stories-card__body">
-      <span class="cmp-stories-card__tag">${cardTag}</span>
+      <a href="${tagLink}" class="cmp-stories-card__tag">${cardTag}</a>
       <h2 class="cmp-stories-card__title">
         <a href="${row.path}">${row.title}</a>
       </h2>

@@ -214,12 +214,18 @@ export default async function decorate(block) {
     const slideContent = document.createElement('div');
     slideContent.classList.add('carousel-slide-content');
 
+    const tagLinkArray = row.path.split('/');
+    const tagLinkCount = tagLinkArray.length;
+    const tagArticlePath = tagLinkArray[tagLinkCount - 1];
+    const tagLinkString = tagLinkArray.join('/');
+    const tagLink = tagLinkString.replace(tagArticlePath, '');
+
     const tag = row.tag ? `${row.tag}` : '';
 
     const slideCopy = document.createElement('div');
     slideCopy.classList.add('carousel-slide-copy');
     slideCopy.innerHTML = `
-    <span class="cmp-stories-card__tag">${tag}</span>
+    <a href="${tagLink}" class="cmp-stories-card__tag">${tag}</a>
     <h2 class="carousel-stories-card__title"><a href="${row.path}">${row.title}</a></h2>
     <div class="cmp-stories-card__intro">${row.subtitle}</div>
     <div class="cmp-stories-card__author">by ${row.author}</div>
